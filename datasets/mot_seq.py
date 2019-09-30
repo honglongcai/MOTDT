@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import torch.utils.data as data
-from scipy.misc import imread
+from imageio import imread
 
 from utils.io import read_mot_results, unzip_objs
 
