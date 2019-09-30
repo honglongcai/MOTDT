@@ -57,7 +57,7 @@ def extract_reid_features(reid_model, image, tlbrs):
         with torch.no_grad():
             im_var = Variable(torch.from_numpy(patches))
             if gpu is not None:
-                im_var = im_var.cuda(gpu)
+                im_var = im_var.cuda(gpu).float()
             features = reid_model(im_var).data
     else:
         im_var = Variable(torch.from_numpy(patches), volatile=True)
