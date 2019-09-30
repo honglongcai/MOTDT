@@ -85,6 +85,7 @@ def nearest_reid_distance(tracks, detections, metric='cosine'):
 
     det_features = np.asarray([track.curr_feature for track in detections], dtype=np.float32)
     for i, track in enumerate(tracks):
+        print(cdist(track.features, det_features, metric))
         cost_matrix[i, :] = np.maximum(0.0, cdist(track.features, det_features, metric).min(axis=0))
 
     return cost_matrix
