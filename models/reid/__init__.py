@@ -9,6 +9,7 @@ from utils import bbox as bbox_utils
 from utils.log import logger
 from models import net_utils
 from .Model import Model
+from PIL import Image
 
 
 def load_reid_model():
@@ -23,7 +24,9 @@ def load_reid_model():
 
 
 def img_process(img):
-    img = img.resize((160, 384), interp='bilinear')
+    img = np.asarray(img)
+    img = Image.fromarray(img)
+    img = img.resize((160, 384), reshape=3)
     img = np.asarray(img)
     img = img[:, :, :3]
     img = img.astype(float)
