@@ -145,14 +145,31 @@ if __name__ == '__main__':
     # import fire
     # fire.Fire(main)
 
-    seqs_str = '''MOT16-02
-                MOT16-05
-                MOT16-09
-                MOT16-11
-                MOT16-13'''
+    seqs_str = '''MOT17-02-DPM
+                MOT17-04-DPM
+                MOT17-05-DPM
+                MOT17-09-DPM
+                MOT17-10-DPM
+                MOT17-11-DPM
+                MOT17-13-DPM
+                MOT17-02-FRCNN
+                MOT17-04-FRCNN
+                MOT17-05-FRCNN
+                MOT17-09-FRCNN
+                MOT17-10-FRCNN
+                MOT17-11-FRCNN
+                MOT17-13-FRCNN
+                MOT17-02-SDP
+                MOT17-04-SDP
+                MOT17-05-SDP
+                MOT17-09-SDP
+                MOT17-10-SDP
+                MOT17-11-SDP
+                MOT17-13-SDP
+                '''
     seqs = [seq.strip() for seq in seqs_str.split()]
 
-    main(data_root='./data/MOT16/train',
+    main(data_root='./data/MOT17/train',
          seqs=seqs,
-         exp_name='mot16_val',
+         exp_name='mot17_val',
          show_image=False)
