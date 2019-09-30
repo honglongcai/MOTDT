@@ -249,6 +249,7 @@ class OnlineTracker(object):
         features = extract_reid_features(self.reid_model, image, tlbrs)
         features = features.cpu().numpy()
         print(len(features.shape))
+        print(features.shape)
         if len(features.shape == 2):
             features = features / np.linalg.norm(features, axis=1, keepdims=True)
         for i, det in enumerate(detections):
