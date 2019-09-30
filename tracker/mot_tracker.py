@@ -13,7 +13,6 @@ from models.reid import load_reid_model, extract_reid_features
 
 from .basetrack import BaseTrack, TrackState
 
-
 class STrack(BaseTrack):
 
     def __init__(self, tlwh, score, max_n_features=100, from_det=True):

@@ -3,19 +3,18 @@ import numpy as np
 from distutils.version import LooseVersion
 import torch
 from torch.autograd import Variable
+from torch.nn.parallel import DataParallel
 
 from utils import bbox as bbox_utils
 from utils.log import logger
 from models import net_utils
-from models.reid.image_part_aligned import Model
+from Model import Model
 
 
 def load_reid_model():
-    model = Model(n_parts=8)
-    model.inp_size = (80, 160)
-    ckpt = 'data/googlenet_part8_all_xavier_ckpt_56.h5'
-
-    net_utils.load_net(ckpt, model)
+    model = DataParallel(Model())
+    ckpt = '/home/honglongcai/Github/PretrainedModel/model_410.pt'
+    model.load_state_dict(torch.load(ckpt, map_location='cuda'))
     logger.info('Load ReID model from {}'.format(ckpt))
 
     model = model.cuda()
@@ -23,18 +22,25 @@ def load_reid_model():
     return model
 
 
-def im_preprocess(image):
-    image = np.asarray(image, np.float32)
-    image -= np.array([104, 117, 123], dtype=np.float32).reshape(1, 1, -1)
-    image = image.transpose((2, 0, 1))
-    return image
+def img_process(img):
+    img = img.resize((128, 384), resample=3)
+    img = np.asarray(img)
+    img = img[:, :, :3]
+    img = img.astype(float)
+    img = img / 255
+    im_mean = np.array([0.485, 0.456, 0.406])
+    im_std = np.array([0.229, 0.224, 0.225])
+    img = img - im_mean
+    img = img / im_std
+    img = np.transpose(img, (2, 0, 1))
+    return img
 
 
 def extract_image_patches(image, bboxes):
     bboxes = np.round(bboxes).astype(np.int)
     bboxes = bbox_utils.clip_boxes(bboxes, image.shape)
-    patches = [image[box[1]:box[3], box[0]:box[2]] for box in bboxes]
-    return patches
+    patches = [img_process(image[box[1]:box[3], box[0]:box[2]]) for box in bboxes]
+    return np.array(patches)
 
 
 def extract_reid_features(reid_model, image, tlbrs):
@@ -42,7 +48,6 @@ def extract_reid_features(reid_model, image, tlbrs):
         return torch.FloatTensor()
 
     patches = extract_image_patches(image, tlbrs)
-    patches = np.asarray([im_preprocess(cv2.resize(p, reid_model.inp_size)) for p in patches], dtype=np.float32)
 
     gpu = net_utils.get_device(reid_model)
     if LooseVersion(torch.__version__) > LooseVersion('0.3.1'):
