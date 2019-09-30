@@ -29,7 +29,7 @@ def img_process(img):
     img = img.resize((160, 384), resample=3)
     img = np.asarray(img)
     img = img[:, :, :3]
-    img = img.astype(float)
+    img = img.astype(np.float32)
     img = img / 255
     im_mean = np.array([0.485, 0.456, 0.406])
     im_std = np.array([0.229, 0.224, 0.225])
