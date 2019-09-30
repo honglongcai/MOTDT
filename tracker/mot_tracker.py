@@ -250,7 +250,7 @@ class OnlineTracker(object):
         features = features.cpu().numpy()
         print(len(features.shape))
         print(features.shape)
-        if len(features.shape == 2):
+        if len(features.shape) == 2:
             features = features / np.linalg.norm(features, axis=1, keepdims=True)
         for i, det in enumerate(detections):
             det.set_feature(features[i])
