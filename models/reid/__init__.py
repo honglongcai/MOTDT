@@ -8,7 +8,7 @@ from torch.nn.parallel import DataParallel
 from utils import bbox as bbox_utils
 from utils.log import logger
 from models import net_utils
-from Model import Model
+from .Model import Model
 
 
 def load_reid_model():
