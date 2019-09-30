@@ -152,7 +152,7 @@ if __name__ == '__main__':
                 MOT16-13'''
     seqs = [seq.strip() for seq in seqs_str.split()]
 
-    main(data_root='/data/MOT16/train',
+    main(data_root='./data/MOT16/train',
          seqs=seqs,
          exp_name='mot16_val',
          show_image=False)
