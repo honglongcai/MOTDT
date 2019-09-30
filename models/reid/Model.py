@@ -96,21 +96,21 @@ class Model(nn.Module):
         res_p_conv5.load_state_dict(resnet.layer4.state_dict())
 
         self.attc1 = ATTC(in_channels=1024, out_channels=2048)
-        self.atts1 = ATTS(in_channels=1024, h=24, w=10)
+        self.atts1 = ATTS(in_channels=1024, h=24, w=8)
         self.attc2 = ATTC(in_channels=1024, out_channels=2048)
-        self.atts2 = ATTS(in_channels=1024, h=24, w=10)
+        self.atts2 = ATTS(in_channels=1024, h=24, w=8)
         self.attc3 = ATTC(in_channels=1024, out_channels=2048)
-        self.atts3 = ATTS(in_channels=1024, h=24, w=10)
+        self.atts3 = ATTS(in_channels=1024, h=24, w=8)
         
         self.p1 = nn.Sequential(copy.deepcopy(res_conv4), copy.deepcopy(res_p_conv5))
         self.p2 = nn.Sequential(copy.deepcopy(res_conv4), copy.deepcopy(res_p_conv5))
         self.p3 = nn.Sequential(copy.deepcopy(res_conv4), copy.deepcopy(res_p_conv5))
 
-        self.maxpool_zg_p1 = nn.MaxPool2d(kernel_size=(24, 10))
-        self.maxpool_zg_p2 = nn.MaxPool2d(kernel_size=(24, 10))
-        self.maxpool_zg_p3 = nn.MaxPool2d(kernel_size=(24, 10))
-        self.maxpool_zp2 = nn.MaxPool2d(kernel_size=(12, 10))
-        self.maxpool_zp3 = nn.MaxPool2d(kernel_size=(8, 10))
+        self.maxpool_zg_p1 = nn.MaxPool2d(kernel_size=(24, 8))
+        self.maxpool_zg_p2 = nn.MaxPool2d(kernel_size=(24, 8))
+        self.maxpool_zg_p3 = nn.MaxPool2d(kernel_size=(24, 8))
+        self.maxpool_zp2 = nn.MaxPool2d(kernel_size=(12, 8))
+        self.maxpool_zp3 = nn.MaxPool2d(kernel_size=(8, 8))
 
         self.reduction = nn.Sequential(nn.Conv2d(2048, feats, 1, bias=False), nn.BatchNorm2d(feats), nn.ReLU())
 

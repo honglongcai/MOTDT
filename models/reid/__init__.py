@@ -26,7 +26,7 @@ def load_reid_model():
 def img_process(img):
     img = np.asarray(img)
     img = Image.fromarray(img)
-    img = img.resize((160, 384), resample=3)
+    img = img.resize((128, 384), resample=3)
     img = np.asarray(img)
     img = img[:, :, :3]
     img = img.astype(np.float32)
