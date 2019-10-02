@@ -179,7 +179,7 @@ class STrack(BaseTrack):
 
 class OnlineTracker(object):
 
-    def __init__(self, min_cls_score=0.4, min_ap_dist=0.60, max_time_lost=30, use_tracking=True, use_refind=True):
+    def __init__(self, min_cls_score=0.4, min_ap_dist=0.64, max_time_lost=30, use_tracking=True, use_refind=True):
 
         self.min_cls_score = min_cls_score
         self.min_ap_dist = min_ap_dist
