@@ -76,7 +76,7 @@ class KalmanFilter(object):
         std = [
             2 * self._std_weight_position * measurement[3],
             2 * self._std_weight_position * measurement[3],
-            1e-1,
+            1e-2,
             2 * self._std_weight_position * measurement[3],
             10 * self._std_weight_velocity * measurement[3],
             10 * self._std_weight_velocity * measurement[3],
@@ -107,7 +107,7 @@ class KalmanFilter(object):
         std_pos = [
             self._std_weight_position * mean[3],
             self._std_weight_position * mean[3],
-            1e-1,
+            1e-2,
             self._std_weight_position * mean[3]]
         std_vel = [
             self._std_weight_velocity * mean[3],
@@ -142,7 +142,7 @@ class KalmanFilter(object):
         std = [
             self._std_weight_position * mean[3],
             self._std_weight_position * mean[3],
-            1e-1,
+            1e-2,
             self._std_weight_position * mean[3]]
         innovation_cov = np.diag(np.square(std))
 
